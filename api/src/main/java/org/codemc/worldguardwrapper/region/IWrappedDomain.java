@@ -17,4 +17,6 @@ public interface IWrappedDomain {
 
     void removeGroup(String name);
 
+    void clear();
+
 }

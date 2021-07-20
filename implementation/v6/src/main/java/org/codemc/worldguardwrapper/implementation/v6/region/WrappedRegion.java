@@ -144,6 +144,12 @@ public class WrappedRegion implements IWrappedRegion {
             public void removeGroup(String name) {
                 handle.getOwners().removeGroup(name);
             }
+
+            @Override
+            public void clear() {
+                handle.getOwners().clear();
+                handle.getMembers().clear();
+            }
         };
     }
 
@@ -179,12 +185,23 @@ public class WrappedRegion implements IWrappedRegion {
             public void removeGroup(String name) {
                 handle.getMembers().removeGroup(name);
             }
+
+            @Override
+            public void clear() {
+                handle.getOwners().clear();
+                handle.getMembers().clear();
+            }
         };
     }
 
     @Override
     public boolean contains(Location location) {
         return handle.contains(WorldGuardVectorUtilities.toBlockVector(location));
+    }
+
+    @Override
+    public Object toRegion() {
+        return handle;
     }
 
 }

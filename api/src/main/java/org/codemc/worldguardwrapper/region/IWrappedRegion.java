@@ -29,4 +29,6 @@ public interface IWrappedRegion {
 
     boolean contains(Location location);
 
+    Object toRegion();
+
 }
