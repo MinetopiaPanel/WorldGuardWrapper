@@ -74,6 +74,11 @@ public class WrappedRegion implements IWrappedRegion {
     }
 
     @Override
+    public String getWorld() {
+        return world.getName();
+    }
+
+    @Override
     public Map<IWrappedFlag<?>, Object> getFlags() {
         Map<IWrappedFlag<?>, Object> result = new HashMap<>();
         handle.getFlags().forEach((flag, value) -> {

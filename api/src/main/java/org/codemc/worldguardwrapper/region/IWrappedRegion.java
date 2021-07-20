@@ -13,6 +13,8 @@ public interface IWrappedRegion {
 
     String getId();
 
+    String getWorld();
+
     Map<IWrappedFlag<?>, Object> getFlags();
 
     <T> Optional<T> getFlag(IWrappedFlag<T> flag);
