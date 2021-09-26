@@ -18,7 +18,6 @@ import org.codemc.worldguardwrapper.implementation.v7.WorldGuardImplementation;
 import org.codemc.worldguardwrapper.implementation.v7.region.WrappedRegion;
 import org.codemc.worldguardwrapper.region.IWrappedRegion;
 
-import javax.annotation.Nullable;
 import java.util.Set;
 
 public class ProxyHandler extends Handler {
@@ -63,7 +62,6 @@ public class ProxyHandler extends Handler {
         handler.tick(bukkitPlayer, implementation.wrapRegionSet(bukkitPlayer.getWorld(), set));
     }
 
-    @Nullable
     @Override
     public StateFlag.State getInvincibility(LocalPlayer player) {
         Player bukkitPlayer = BukkitAdapter.adapt(player);

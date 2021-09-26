@@ -42,19 +42,7 @@ public class WorldGuardWrapper implements IWorldGuardImplementation {
         if (targetVersion == 6) {
             implementation = new org.codemc.worldguardwrapper.implementation.v6.WorldGuardImplementation();
             listener = new org.codemc.worldguardwrapper.implementation.v6.event.EventListener();
-        } else if (targetVersion == -6) {
-            implementation = new org.codemc.worldguardwrapper.implementation.legacy.WorldGuardImplementation();
-            listener = new org.codemc.worldguardwrapper.implementation.legacy.event.EventListener();
         } else {
-            /*
-            if (Bukkit.getPluginManager().isPluginEnabled("FastAsyncWorldEdit")) {
-                implementation = new org.codemc.worldguardwrapper.implementation.v7fawe.WorldGuardImplementation();
-                listener = new org.codemc.worldguardwrapper.implementation.v7fawe.event.EventListener();
-            } else {
-                implementation = new org.codemc.worldguardwrapper.implementation.v7.WorldGuardImplementation();
-                listener = new org.codemc.worldguardwrapper.implementation.v7.event.EventListener();
-            }
-            */
             implementation = new org.codemc.worldguardwrapper.implementation.v7.WorldGuardImplementation();
             listener = new org.codemc.worldguardwrapper.implementation.v7.event.EventListener();
         }
