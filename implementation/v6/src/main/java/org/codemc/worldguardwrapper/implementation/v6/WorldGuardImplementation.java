@@ -18,8 +18,8 @@ import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.session.Session;
 import com.sk89q.worldguard.session.handler.Handler;
-import javassist.util.proxy.ProxyFactory;
 import lombok.NonNull;
+import net.sf.cglib.proxy.Enhancer;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -156,15 +156,15 @@ public class WorldGuardImplementation implements IWorldGuardImplementation {
 
     @Override
     public void registerHandler(Supplier<IHandler> factory) {
-        ProxyFactory proxyFactory = new ProxyFactory();
-        proxyFactory.setUseCache(false);
-        proxyFactory.setSuperclass(ProxyHandler.class);
+        Enhancer enhancer = new Enhancer();
+        enhancer.setUseCache(false);
+        enhancer.setSuperclass(ProxyHandler.class);
 
         Class<? extends ProxyHandler> handlerClass;
         Constructor<? extends ProxyHandler> handlerConstructor;
         try {
             //noinspection unchecked
-            handlerClass = (Class<? extends ProxyHandler>) proxyFactory.createClass();
+            handlerClass = (Class<? extends ProxyHandler>) enhancer.createClass();
             handlerConstructor = handlerClass.getDeclaredConstructor(WorldGuardImplementation.class, IHandler.class, Session.class);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);

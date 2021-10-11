@@ -27,4 +27,8 @@ public abstract class AbstractWrappedFlag<T> implements IWrappedFlag<T> {
         return fromWGValue(handle.getDefault());
     }
 
+    @Override
+    public WrappedRegionGroupFlag getRegionGroupFlag() {
+        return new WrappedRegionGroupFlag(getHandle().getRegionGroupFlag());
+    }
 }

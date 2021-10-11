@@ -24,10 +24,18 @@
         <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
+            <groupId>com.github.raymond-skylinedatasystems</groupId>
+            <artifactId>cglib</artifactId>
+            <version>ec112b2291</version>
         </dependency>
     </dependencies>
 </project>

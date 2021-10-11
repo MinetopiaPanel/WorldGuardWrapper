@@ -13,15 +13,7 @@ import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.flags.BooleanFlag;
-import com.sk89q.worldguard.protection.flags.DoubleFlag;
-import com.sk89q.worldguard.protection.flags.EnumFlag;
-import com.sk89q.worldguard.protection.flags.Flag;
-import com.sk89q.worldguard.protection.flags.IntegerFlag;
-import com.sk89q.worldguard.protection.flags.LocationFlag;
-import com.sk89q.worldguard.protection.flags.StateFlag;
-import com.sk89q.worldguard.protection.flags.StringFlag;
-import com.sk89q.worldguard.protection.flags.VectorFlag;
+import com.sk89q.worldguard.protection.flags.*;
 import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
 import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 import com.sk89q.worldguard.protection.managers.RegionManager;
@@ -30,8 +22,8 @@ import com.sk89q.worldguard.protection.regions.ProtectedPolygonalRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.session.Session;
 import com.sk89q.worldguard.session.handler.Handler;
-import javassist.util.proxy.ProxyFactory;
 import lombok.NonNull;
+import net.sf.cglib.proxy.Enhancer;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -54,15 +46,7 @@ import org.codemc.worldguardwrapper.selection.ISelection;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -169,21 +153,21 @@ public class WorldGuardImplementation implements IWorldGuardImplementation {
 
     @Override
     public void registerHandler(Supplier<IHandler> factory) {
-        ProxyFactory proxyFactory = new ProxyFactory();
-        proxyFactory.setUseCache(false);
-        proxyFactory.setSuperclass(ProxyHandler.class);
+        Enhancer enhancer = new Enhancer();
+        enhancer.setUseCache(false);
+        enhancer.setSuperclass(ProxyHandler.class);
 
         Class<? extends ProxyHandler> handlerClass;
         Constructor<? extends ProxyHandler> handlerConstructor;
         try {
             //noinspection unchecked
-            handlerClass = (Class<? extends ProxyHandler>) proxyFactory.createClass();
+            handlerClass = (Class<? extends ProxyHandler>) enhancer.createClass();
             handlerConstructor = handlerClass.getDeclaredConstructor(WorldGuardImplementation.class, IHandler.class, Session.class);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
 
-        core.getPlatform().getSessionManager().registerHandler(new Handler.Factory<Handler>() {
+        core.getPlatform().getSessionManager().registerHandler(new Handler.Factory<>() {
             @Override
             public Handler create(Session session) {
                 IHandler handler = factory.get();

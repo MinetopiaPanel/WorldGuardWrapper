@@ -1,8 +1,7 @@
 package org.codemc.worldguardwrapper.flag;
 
 public enum WrappedState {
-    ALLOW,
-    DENY;
+    ALLOW, DENY;
 
     WrappedState() {
     }
