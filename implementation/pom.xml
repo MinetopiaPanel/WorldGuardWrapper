@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>legacy</module>
         <module>v6</module>
         <module>v7</module>
     </modules>
